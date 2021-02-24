@@ -1,0 +1,166 @@
+<div class="font_preload" style="opacity: 0">
+    <span style="font-family: 'YouDecide'"></span>
+</div>
+<div ng-if="vm.state == 1">
+	<div>
+		<img ng-src="assets/images/home-design.png" width="70%">
+	</div>
+	<div>
+		<img ng-src="assets/images/marlboro.png" class="marlboro-home">
+	</div>
+	<div>
+		<img ng-src="assets/images/main-logo.png" class="marlboro-home-logo">
+	</div>
+	<div>
+		<div class="play">
+			<span class="play-container play-now">
+				<button id="play-now" class="btn box-shadow play-button">PLAY NOW</button>
+			</span>
+		</div>
+	</div>
+	<div>
+		<div class="reminder-container">
+			<span class="reminder-text">REMINDER: YOU  HAVE AN UNLIMITED ATTEMPTS TO ACCOMPLISH EACH LEVEL PER DAY, POINTS CAN BE EARNED ONCE PER DAY ONLY.</span>
+		</div>
+	</div>
+</div>
+<div ng-if="vm.state == 2" class="how-to-page">
+	<div class="position-relative">
+		<img src="assets/images/design.png" class="main-design-how-to main-design-how-to-init">
+	</div>
+	<div>
+		<img ng-src="assets/images/main-logo.png" class="marlboro-how-to-play-logo marlboro-how-to-play-logo-init">
+	</div>
+	<div>
+		<span class="how-to-play how-to-play-init">HOW TO PLAY</span>
+	</div>
+	<div>
+		<img ng-src="assets/images/slide.png" class="slide slide-init">
+		<div class="slide-text slide-text-init">
+			<span class="how-to-main">DRAG</span><br>
+			<span class="how-to-sub">THE TILES.</span>
+		</div>
+	</div>
+	<div>
+		<img ng-src="assets/images/assemble.png" class="assemble assemble-init">
+		<div class="assemble-text assemble-text-init">
+			<span class="how-to-main">ASSEMBLE</span><br>
+			<span class="how-to-sub">THE PUZZLE.</span>
+		</div>
+	</div>
+	<div>
+		<img ng-src="assets/images/win.png" class="win win-init">
+		<div class="win-text win-text-init">
+			<span class="how-to-main">WIN</span><br>
+			<span class="how-to-sub">THE GAME!</span>
+		</div>
+	</div>
+</div>
+<div ng-if="vm.state == 3" class="game-page game-page-init">
+	<div ng-if="!vm.gameOver">
+		<div class="hint-overlay" ng-if="vm.showHint">
+			<div class="img-container">
+				<img class="hint-image" ng-src="{{'assets/images/puzzle/' + vm.img[vm.puzzleOptions.currentPuzzle] + '.jpg'}}">
+			</div>
+			<div class="play" ng-if="!vm.puzzleOptions.hasPuzzleFinished">		
+				<span class="play-container">
+					<div class="hint-container">
+						<button ng-click="vm.displayHint()" class="hint-button cross box-shadow">
+							<div class="cross-btn">x</div>
+						</button>
+					</div>
+				</span>
+			</div>
+		</div>
+		<loading-spinner load="!vm.puzzleOptions.hasPuzzleLoaded"></loading-spinner>
+		<div class="position-relative">
+			<img ng-src="assets/images/design.png" class="main-design">
+			<img ng-src="assets/images/main-logo-white.png" class="position-absolute main-logo-white">
+			<img class="time-border" ng-src="assets/images/timer.png">
+			<div class="time-container">
+				<span class="time-remaining">{{vm.remaining}}</span>
+				<span class="time-desc">sec</span>
+			</div>
+		</div>
+		<div class="level-container">
+			<span class="level-text">LEVEL {{vm.level.l}}</span>
+		</div>
+		<div class="puzzle-container">
+			<div class="puzzle-overlay d-flex align-items-center" ng-if="vm.showText" ng-show="vm.puzzleOptions.hasPuzzleFinished">
+				<span class="puzzle-overlay-text">{{vm.textOverlay[vm.img[vm.puzzleOptions.currentPuzzle] - 1]}}</span>
+			</div>
+			<div class="puzzle-overlay-red puzzle-overlay-show d-flex align-items-center" ng-if="!vm.puzzleOptions.hasPuzzleStarted && !vm.puzzleOptions.hasPuzzleFinished && vm.puzzleOptions.currentPuzzle == 0">
+				<span class="puzzle-overlay-text-red">SOLVE {{vm.level.n}} {{vm.level.n > 1 ? 'PUZZLES' : 'PUZZLE' }} <br> WITHIN 100 SECONDS <br> TO WIN THE GAME!</span>
+			</div>
+			<div class="initial-overlay"></div>
+			<puzzle row="vm.level.r" col="vm.level.c" num="vm.level.n" img="vm.img" fnc="vm.puzzleOptions" finished-callback="vm.puzzleFinished()" enable-sticky="vm.level.l >= vm.stickyLevel"></puzzle>
+		</div>
+		<div ng-if="vm.puzzleOptions">
+			<div class="play" ng-if="!vm.puzzleOptions.hasPuzzleFinished && vm.level.l >= vm.guideLevel">		
+				<span class="play-container">
+					<div class="hint-container">
+						<button style="width:auto;" ng-click="vm.displayHint()" ng-hide="vm.showHint" class="hint-button box-shadow">HINT</button>
+					</div>
+				</span>
+			</div>
+			<div ng-if="!vm.puzzleOptions.hasPuzzleStarted && !vm.puzzleOptions.hasPuzzleFinished">
+				<div class="play">
+					<span class="play-container">
+						<button ng-click="vm.start()" class="btn box-shadow play-button">START</button>
+					</span>
+				</div>
+			</div>
+			<div ng-if="!vm.puzzleOptions.hasPuzzleStarted && vm.puzzleOptions.hasPuzzleFinished && vm.puzzleOptions.currentPuzzle < vm.img.length - 1">
+				<div class="play">
+					<span class="play-container">
+						<button ng-click="vm.showNext()" class="btn box-shadow play-button">NEXT</button>
+					</span>
+				</div>
+			</div>
+			<div ng-if="vm.puzzleOptions.hasPuzzleFinished && vm.puzzleOptions.currentPuzzle == vm.level.n - 1">
+				<div class="play">
+					<span class="play-container">
+						<button ng-click="vm.next()" class="btn box-shadow play-button">FINISH</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div ng-if="vm.gameOver" class="">
+			<div class="position-relative">
+				<img ng-src="assets/images/design.png" class="main-design">
+			</div>
+			<span class="times-up-container">
+				<div class="times-up times-up-text-2 pt-4 pb-4">KEEP TRYING!</div>
+				<div class="times-up-text-3 pt-4">TO SOLVE THE PUZZLE AND</div>
+				<div class="times-up-text-3">PROCEED TO THE NEXT LEVEL.</div>
+				<div class="times-up-button-container">
+					<button ng-click="vm.tryAgain()" class="btn times-up-button">TRY AGAIN</button>
+				</div>
+			</span>
+		</div>
+	</div>
+</div>
+<div ng-if="vm.state == 4">
+	<div class="fin-overlay text-center w-100" ng-if="vm.completed">
+		<div class="fin-overlay-text-1 w-100">YOU ARE ABSOLUTELY LEGENDARY!</div>
+		<div class="fin-overlay-text-2 w-100">YOU HAVE COMPLETED ALL PUZZLES IN THIS LEVEL!</div>
+		<div class="fin-overlay-text-3 w-100">PLAY AGAIN TOMORROW!</div>
+	</div>
+	<canvas id="confetti" style="
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;"
+    ></canvas>
+	<div class="position-relative">
+		<img ng-src="assets/images/design.png" class="main-design">
+	</div>
+	<div class="fin-container text-center w-100">
+		<div class="fin-text-1 w-100">CONGRATULATIONS!</div>
+		<div class="fin-text-2 w-100">YOU WON</div>
+		<div class="fin-text-3 w-100">{{vm.level.p}}</div>
+		<div class="fin-text-4 w-100">POINTS!</div>
+		<div class="fin-text-5 w-100">TO BE ADDED TO YOUR ACCOUNT</div>
+	</div>
+</div>

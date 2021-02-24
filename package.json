@@ -1,0 +1,41 @@
+{
+  "name": "registration",
+  "version": "1.0.0",
+  "description": "Registration",
+  "main": "index.js",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.22",
+    "angular": "^1.7.7",
+    "angular-animate": "^1.7.9",
+    "angular-messages": "^1.7.8",
+    "angular-ui-bootstrap-4": "^3.0.0-7",
+    "body-scroll-lock": "^3.0.2",
+    "bootstrap": "^4.3.1",
+    "canvas-confetti": "^1.2.0",
+    "confetti-js": "0.0.18",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-watch": "^5.0.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "pump": "^3.0.0",
+    "sweetalert2": "^8.15.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-print": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "merge-stream": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Austin Ordaz",
+  "license": "ISC"
+}
