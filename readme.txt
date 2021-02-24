@@ -18,3 +18,10 @@ For 4
 	Scroll to the bottom-most part of the file and you should see an entry for the
 	'BASE_DATE' constant. Update that to change the starting date for the game.
 	Setting it to a future date will prevent the game from starting.
+	
+To run locally / build dist files:
+	Run "npm install" in root folder.
+	Gulp must be installed globally. 
+	
+	Run "gulp" in root folder to build the application.
+	Run "gulp" in /ClientSideLibrary to build the directives and services
